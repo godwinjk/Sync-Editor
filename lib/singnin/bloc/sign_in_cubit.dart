@@ -2,6 +2,7 @@ import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
+import 'package:synceditor/util/password_hash.dart';
 
 class SignInCubit extends Cubit<SignInCubitState> {
   SignInCubit() : super(SignInInitial());
@@ -23,14 +24,35 @@ class SignInCubit extends Cubit<SignInCubitState> {
     }
   }
 
-  Future<void> signIn() async {
+  Future<void> signIn({required String email, required String password}) async {
     emit(SignInProgress());
-
     try {
-      UserCredential userCredential = await _auth.signInAnonymously();
+      final hash = hashPassword(password);
+      UserCredential userCredential =
+          await _auth.signInWithEmailAndPassword(email: email, password: hash);
 
       if (kDebugMode) {
         print('Signed in as: ${userCredential.user?.uid}');
+      }
+      emit(SignInFinished());
+    } catch (e) {
+      if (e is FirebaseAuthException) {
+        emit(SignInFailed(e.message ?? 'Login failed'));
+      } else {
+        emit(SignInFailed("Login failed"));
+      }
+    }
+  }
+
+  Future<void> singUp({required String email, required String password}) async {
+    emit(SignInProgress());
+    try {
+      final hash = hashPassword(password);
+      UserCredential userCredential = await _auth
+          .createUserWithEmailAndPassword(email: email, password: hash);
+
+      if (kDebugMode) {
+        print('Signed up as: ${userCredential.user?.uid}');
       }
       emit(SignInFinished());
     } catch (e) {

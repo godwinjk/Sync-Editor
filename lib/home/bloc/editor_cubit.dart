@@ -11,13 +11,15 @@ class EditorCubit extends Cubit<EditorState> {
   String _content = '';
 
   // Firestore document reference
-  final String documentId = 'editor_content';
   late String uid = '';
 
   EditorCubit() : super(EditorInitial());
 
   Future<void> initUserId() async {
     uid = FirebaseAuth.instance.currentUser?.uid ?? '';
+    if (uid.isEmpty) {
+      uid = 'editor_content';
+    }
   }
 
   // Method to upload content to Firestore
@@ -26,10 +28,9 @@ class EditorCubit extends Cubit<EditorState> {
       emit(EditorUploading());
       _content = content;
       // Upload content to Firestore
-      await _firestore.collection('editor').doc(documentId).set({
+      await _firestore.collection('editor').doc(uid).set({
         'content': content,
         'timestamp': FieldValue.serverTimestamp(),
-        'uid': uid,
       });
 
       emit(EditorUploadSuccess(content));
@@ -40,8 +41,7 @@ class EditorCubit extends Cubit<EditorState> {
 
   // Method to listen for changes in Firestore
   void listenToChanges() {
-    _firestore.collection('editor').doc(documentId).snapshots().listen(
-        (snapshot) {
+    _firestore.collection('editor').doc(uid).snapshots().listen((snapshot) {
       if (snapshot.exists) {
         String newContent = snapshot['content'] ?? '';
 
