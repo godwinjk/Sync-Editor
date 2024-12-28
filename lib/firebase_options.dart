@@ -3,6 +3,7 @@
 import 'package:firebase_core/firebase_core.dart' show FirebaseOptions;
 import 'package:flutter/foundation.dart'
     show defaultTargetPlatform, kIsWeb, TargetPlatform;
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 /// Default [FirebaseOptions] for use with your Firebase apps.
 ///
@@ -40,49 +41,49 @@ class DefaultFirebaseOptions {
     }
   }
 
-  static const FirebaseOptions web = FirebaseOptions(
-    apiKey: 'AIzaSyDG0M2ib9Yi5gTv45ElgLnYB2CeRdP1AtQ',
-    appId: '1:583933150817:web:d765341b9d7298d85d8c20',
-    messagingSenderId: '583933150817',
-    projectId: 'sync-editor-87b21',
-    authDomain: 'sync-editor-87b21.firebaseapp.com',
-    storageBucket: 'sync-editor-87b21.firebasestorage.app',
-    measurementId: 'G-9LWE93EP83',
+  static FirebaseOptions web = FirebaseOptions(
+    apiKey: dotenv.env['API_KEY_WEB']!,
+    appId: dotenv.env['APP_ID_WEB']!,
+    messagingSenderId: dotenv.env['MESSAGING_SENDER_ID']!,
+    projectId: dotenv.env['PROJECT_ID']!,
+    authDomain: dotenv.env['AUTH_DOMAIN']!,
+    storageBucket: dotenv.env['STORAGE_BUCKET']!,
+    measurementId: dotenv.env['MEASUREMENT_ID_WEB']!,
   );
 
-  static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyB_jSGSbkTkHobZCa5mWIRGPhzgPLhLp0g',
-    appId: '1:583933150817:android:a3d877d911cae8315d8c20',
-    messagingSenderId: '583933150817',
-    projectId: 'sync-editor-87b21',
-    storageBucket: 'sync-editor-87b21.firebasestorage.app',
+  static FirebaseOptions android = FirebaseOptions(
+    apiKey: dotenv.env['API_KEY_AND']!,
+    appId: dotenv.env['APP_ID_AND']!,
+    messagingSenderId: dotenv.env['MESSAGING_SENDER_ID']!,
+    projectId: dotenv.env['PROJECT_ID']!,
+    storageBucket: dotenv.env['STORAGE_BUCKET']!,
   );
 
-  static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyDmDBpYxhkfcdy1Ob4yxTevW-w648kejXs',
-    appId: '1:583933150817:ios:26d591dad6b644f35d8c20',
-    messagingSenderId: '583933150817',
-    projectId: 'sync-editor-87b21',
-    storageBucket: 'sync-editor-87b21.firebasestorage.app',
-    iosBundleId: 'com.godwin.synceditor',
+  static FirebaseOptions ios = FirebaseOptions(
+    apiKey: dotenv.env['API_KEY_MAC']!,
+    appId: dotenv.env['APP_ID_MAC']!,
+    messagingSenderId: dotenv.env['MESSAGING_SENDER_ID']!,
+    projectId: dotenv.env['PROJECT_ID']!,
+    storageBucket: dotenv.env['STORAGE_BUCKET']!,
+    iosBundleId: dotenv.env['IOS_BUNDLE_ID']!,
   );
 
-  static const FirebaseOptions macos = FirebaseOptions(
-    apiKey: 'AIzaSyDmDBpYxhkfcdy1Ob4yxTevW-w648kejXs',
-    appId: '1:583933150817:ios:26d591dad6b644f35d8c20',
-    messagingSenderId: '583933150817',
-    projectId: 'sync-editor-87b21',
-    storageBucket: 'sync-editor-87b21.firebasestorage.app',
-    iosBundleId: 'com.godwin.synceditor',
+  static FirebaseOptions macos = FirebaseOptions(
+    apiKey: dotenv.env['API_KEY_MAC']!,
+    appId: dotenv.env['APP_ID_MAC']!,
+    messagingSenderId: dotenv.env['MESSAGING_SENDER_ID']!,
+    projectId: dotenv.env['PROJECT_ID']!,
+    storageBucket: dotenv.env['STORAGE_BUCKET']!,
+    iosBundleId: dotenv.env['IOS_BUNDLE_ID']!,
   );
 
-  static const FirebaseOptions windows = FirebaseOptions(
-    apiKey: 'AIzaSyDG0M2ib9Yi5gTv45ElgLnYB2CeRdP1AtQ',
-    appId: '1:583933150817:web:c5114dd3e650a0105d8c20',
-    messagingSenderId: '583933150817',
-    projectId: 'sync-editor-87b21',
-    authDomain: 'sync-editor-87b21.firebaseapp.com',
-    storageBucket: 'sync-editor-87b21.firebasestorage.app',
-    measurementId: 'G-QN1CRN39B2',
+  static FirebaseOptions windows = FirebaseOptions(
+    apiKey: dotenv.env['API_KEY_WIN']!,
+    appId: dotenv.env['APP_ID_WIN']!,
+    messagingSenderId: dotenv.env['MESSAGING_SENDER_ID']!,
+    projectId: dotenv.env['PROJECT_ID']!,
+    authDomain: dotenv.env['AUTH_DOMAIN']!,
+    storageBucket: dotenv.env['STORAGE_BUCKET']!,
+    measurementId: dotenv.env['MEASUREMENT_ID_WIN']!,
   );
 }
