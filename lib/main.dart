@@ -1,16 +1,15 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:synceditor/common_bloc/bloc_wrapper.dart';
 import 'package:synceditor/home/home_page.dart';
 import 'package:synceditor/singnin/sing_in_page.dart';
 
-import 'firebase_options.dart';
+import 'firebase_options_local.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  dotenv.load();
+  // await dotenv.load();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
